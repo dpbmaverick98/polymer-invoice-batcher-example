@@ -1,157 +1,111 @@
-# Polymer State Sync
+# Polymer Invoice ID Batcher Example 
 
 A cross-chain state synchronization system built on [Polymer](https://polymerlabs.org), enabling seamless state sharing across multiple EVM chains.
 
-## Features
+## Overview
 
-- Cross-chain state synchronization using Polymer Protocol's Prover
-- Support for multiple EVM chains (Optimism, Base, Mode, Bob, Ink, Unichain)
-- Asynchronous state propagation to all chains
-- Automatic proof generation and validation with Polymer's Prover API
-- Simple key-value storage interface
+This system consists of two main contracts:
+- `InvoiceIDBatcher.sol`: Handles batching and synchronization of invoice IDs across chains
+- Trusted sources management for secure cross-chain communication
 
 ## Prerequisites
 
 - Node.js (v18 or higher)
 - `npm` or `yarn`
-- A wallet with some testnet ETH on all supported chains:
+- A wallet with some testnet ETH on supported chains:
   - Optimism Sepolia
   - Base Sepolia
   - Mode Sepolia
-  - Bob Sepolia
-  - Ink Sepolia
-  - Unichain Sepolia
-- [Polymer API Key](https://docs.polymerlabs.org/docs/build/contact) for requesting the cross-chain proof
+- [Polymer API Key](https://docs.polymerlabs.org/docs/build/contact) for requesting cross-chain proofs
 
-## Installation
+## Setup
 
 1. Clone the repository:
-
    ```bash
-   git clone https://github.com/stevenlei/polymer-state-sync.git
-   cd polymer-state-sync
+   git clone https://github.com/stevenlei/polymer-invoice-id-batcher.git
+   cd polymer-invoice-id-batcher
    ```
 
 2. Install dependencies:
-
    ```bash
    npm install
    ```
 
 3. Configure environment variables:
-
    - Copy `.env.example` to `.env`
    - Add your private key
    - Add RPC URLs for each chain
-   - Add Polymer Prover addresses for each chain (already defined in `.env.example`)
-   - Contract addresses will be automatically updated during deployment
+   - Add Polymer Prover addresses for each chain (defined in `.env.example`)
 
-## Deployment
+## Deployment and Configuration
 
-You can deploy the contract to either a single chain or all supported chains:
+1. Deploy the contracts:
+   ```bash
+   npm run deploy:v2
+   ```
+   This will deploy the InvoiceIDBatcher contract to all configured chains and update the `.env` file with contract addresses.
 
-### Deploy to All Chains
+2. Set up trusted sources:
+   ```bash
+   npm run setup:trusted
+   ```
+   This script configures the trusted sources across all chains to enable secure cross-chain communication.
 
-```bash
-npm run deploy:all
-```
+## Running the System
 
-This will:
+1. Start the relayer:
+   ```bash
+   npm run relayer:v2
+   ```
+   The relayer monitors events across chains and handles cross-chain message propagation.
 
-- Deploy to all supported chains sequentially
-- Update contract addresses in `.env` automatically
-- Show deployment progress and results
+## Testing End-to-End
 
-### Deploy to Specific Chain
+To test the system:
 
-```bash
-npm run deploy:optimism  # Deploy to Optimism Sepolia
-npm run deploy:base      # Deploy to Base Sepolia
-npm run deploy:mode      # Deploy to Mode Sepolia
-npm run deploy:bob       # Deploy to Bob Sepolia
-npm run deploy:ink       # Deploy to Ink Sepolia
-npm run deploy:unichain  # Deploy to Unichain Sepolia
-```
-
-## Usage
-
-### Run Relayer
-
-Start the relayer to monitor and propagate state changes:
-
-```bash
-npm run relayer
-```
-
-The relayer will:
-
-- Monitor events from all chains
-- Generate proofs using Polymer Protocol
-- Propagate state changes to all other chains asynchronously
-
-### Set Value
-
-Set a value that will be synchronized across all chains:
-
-```bash
-npm run set
-```
-
-### Get Value
-
-Query a value from any chain:
-
-```bash
-npm run get
-```
+1. Ensure the relayer is running (`npm run relayer:v2`)
+2. Use the contract functions to:
+   - Add invoice IDs to a batch
+   - Submit batches for cross-chain synchronization
+   - Verify invoice IDs are synchronized across chains
 
 ## Architecture
 
-1. **Smart Contract (`StateSync.sol`)**
+1. **InvoiceIDBatcher Contract**
+   - Batches invoice IDs
+   - Manages trusted sources
+   - Handles cross-chain synchronization
+   - Validates Polymer proofs
 
-   - Stores key-value pairs
-   - Emits events for state changes
-   - Validates proofs with Polymer's Prover API
-
-2. **Relayer (`relayer.js`)**
-
-   - Starts with `npm run relayer`
-   - Monitors all chains for events
-   - Generates proofs for state changes
-   - Propagates changes to all other chains
-   - Handles async submissions
+2. **RelayerV2**
+   - Monitors chain events
+   - Generates and submits cross-chain proofs
+   - Handles message propagation
 
 3. **Scripts**
-   - `setValue.js`: Set a value on any chain (Starts with `npm run set`)
-   - `getValue.js`: Query value from any chain (Starts with `npm run get`)
-   - `deploy.js`: Deploy to specific chain (Starts with `npm run deploy:{chain}`)
-   - `deploy-all.js`: Deploy to all chains (Starts with `npm run deploy:all`)
+   - `deployV2.js`: Deploys contracts
+   - `setupTrustedSources.js`: Configures trusted sources
+   - `relayerV2.js`: Handles cross-chain communication
+   - `sendInvoices.js`: Submits test invoice IDs to the system
 
-## Security
-
-- Proof validation prevents unauthorized state changes
-- Replay attack protection using proof hashes and nonce
-- Key ownership validation for updates
-
-## Networks
+## Supported Networks
 
 Currently supported networks (Sepolia testnet):
-
 - Optimism
 - Base
 - Mode
-- Bob
-- Ink
-- Unichain
+
+## Security
+
+- Trusted source validation
+- Proof verification using Polymer Protocol
+- Batch integrity checks
 
 ## Disclaimer
 
-This is a proof of concept and is not intended for production use. It may contain bugs, vulnerabilities, or other issues that make it unsuitable for use in a production environment. I am not responsible for any issues that may arise from using this project on mainnet.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
+This is a proof of concept and is not intended for production use. Use at your own risk.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+# polymer-invoice-batcher-example
