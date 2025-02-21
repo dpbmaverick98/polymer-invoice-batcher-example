@@ -1,3 +1,31 @@
+/**
+ * Cross-chain event relayer for invoice ID synchronization
+ * 
+ * Usage:
+ * ```bash
+ * # Start the relayer
+ * npm run relayer:v2
+ * 
+ * # Or using node directly:
+ * node scripts/relayerV2.js
+ * ```
+ * 
+ * This script will:
+ * 1. Monitor all chains for InvoiceBatch events
+ * 2. Generate Polymer proofs for cross-chain messages
+ * 3. Relay batched invoice IDs to other chains
+ * 4. Display real-time status of operations
+ * 
+ * Requirements:
+ * - Contracts must be deployed (run deploy:v2)
+ * - Trusted sources must be configured (run setup:trusted)
+ * - Valid Polymer API key in .env
+ * - Wallet must have gas tokens on all chains
+ * 
+ * To stop the relayer:
+ * Press Ctrl+C
+ */
+
 require("dotenv").config();
 const ethers = require("ethers");
 const axios = require("axios");

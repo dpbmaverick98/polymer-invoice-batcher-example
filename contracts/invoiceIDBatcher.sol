@@ -149,11 +149,6 @@ contract InvoiceIDBatcher {
         require(trustedSourceContracts[sourceChainId] != address(0), "Chain not trusted");
         require(sourceContract == trustedSourceContracts[sourceChainId], "Invalid source contract");
 
-        // Prevent replay attacks
-        bytes32 proofHash = keccak256(abi.encodePacked(proof));
-        require(!usedProofHashes[proofHash], "Proof already used");
-        usedProofHashes[proofHash] = true;
-
         // Decode the batch of invoice hashes from the event data
         bytes32[] memory invoices = abi.decode(data, (bytes32[]));
         

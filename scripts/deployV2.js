@@ -1,3 +1,27 @@
+/**
+ * Deploy InvoiceIDBatcher contracts to all configured chains
+ * 
+ * Usage:
+ * ```bash
+ * # Deploy to all configured chains
+ * npm run deploy:v2
+ * 
+ * # Or using node directly:
+ * node scripts/deployV2.js
+ * ```
+ * 
+ * This script will:
+ * 1. Deploy InvoiceIDBatcher contract to each configured chain
+ * 2. Update .env with contract addresses
+ * 3. Display deployment progress and results
+ * 
+ * Requirements:
+ * - .env file configured with:
+ *   - PRIVATE_KEY
+ *   - RPC endpoints for each chain
+ *   - Polymer Prover addresses
+ */
+
 require("dotenv").config();
 const hre = require("hardhat");
 const chalk = require("chalk");

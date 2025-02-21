@@ -1,3 +1,30 @@
+/**
+ * Test utility to send invoice IDs to the system
+ * 
+ * Usage:
+ * ```bash
+ * # Send test invoice IDs
+ * npm run send:invoices
+ * 
+ * # Or using node directly:
+ * node scripts/sendInvoices.js
+ * ```
+ * 
+ * This script will:
+ * 1. Prompt for target chain selection
+ * 2. Allow input of multiple invoice IDs
+ * 3. Submit invoices to the contract
+ * 4. Optionally batch the submitted invoices
+ * 
+ * Requirements:
+ * - Contracts must be deployed (run deploy:v2)
+ * - Wallet must have gas tokens on target chain
+ * - Relayer should be running to sync across chains
+ * 
+ * Note: The relayer (relayerV2.js) must be running in another terminal
+ * to propagate the batched invoices across chains.
+ */
+
 require("dotenv").config();
 const ethers = require("ethers");
 const inquirer = require("inquirer");

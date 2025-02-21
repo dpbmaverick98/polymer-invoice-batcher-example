@@ -1,3 +1,26 @@
+/**
+ * Configure trusted source contracts across all chains
+ * 
+ * Usage:
+ * ```bash
+ * # Set up trusted sources across all chains
+ * npm run setup:trusted
+ * 
+ * # Or using node directly:
+ * node scripts/setupTrustedSources.js
+ * ```
+ * 
+ * This script will:
+ * 1. Read deployed contract addresses from .env
+ * 2. Configure each contract to trust other chain contracts
+ * 3. Verify trusted source configuration
+ * 
+ * Requirements:
+ * - Contracts must be deployed first (run deploy:v2)
+ * - .env must contain contract addresses
+ * - Wallet must have enough gas tokens on each chain
+ */
+
 require("dotenv").config();
 const hre = require("hardhat");
 const chalk = require("chalk");

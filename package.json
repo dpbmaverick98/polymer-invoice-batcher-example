@@ -1,25 +1,25 @@
 {
-  "name": "polymer-proof-api-test",
+  "name": "polymer-invoice-id-batcher",
   "version": "1.0.0",
+  "description": "Cross-chain invoice ID synchronization using Polymer Protocol",
   "main": "index.js",
   "scripts": {
     "compile": "hardhat compile",
-    "deploy:optimism": "hardhat run scripts/deploy.js --network optimismSepolia",
-    "deploy:base": "hardhat run scripts/deploy.js --network baseSepolia",
-    "deploy:mode": "hardhat run scripts/deploy.js --network modeSepolia",
-    "deploy:bob": "hardhat run scripts/deploy.js --network bobSepolia",
-    "deploy:ink": "hardhat run scripts/deploy.js --network inkSepolia",
-    "deploy:unichain": "hardhat run scripts/deploy.js --network unichainSepolia",
-    "deploy:all": "node scripts/deploy-all.js",
-    "relayer": "node scripts/relayer.js",
-    "set": "node scripts/setValue.js",
-    "get": "node scripts/getValue.js",
+    "deploy:v2": "hardhat run scripts/deployV2.js",
+    "setup:trusted": "hardhat run scripts/setupTrustedSources.js",
+    "relayer:v2": "node scripts/relayerV2.js",
+    "send:invoices": "node scripts/sendInvoices.js",
     "test": "hardhat test"
   },
-  "keywords": [],
+  "keywords": [
+    "polymer",
+    "blockchain",
+    "cross-chain",
+    "ethereum",
+    "invoice"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "axios": "^1.7.9",
     "chalk": "^4.1.2",
